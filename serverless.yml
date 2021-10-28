@@ -25,12 +25,12 @@ provider:
   region: sa-east-1
 
 functions:
-  hello:
-    handler: src/functions/hello.handle
+  createTodo:
+    handler: src/functions/createTodo.handle
     events:
       - http: 
-          path: /hello
-          method: GET
+          path: /todos/{userId}
+          method: POST
           cors: true
 
 resources:
