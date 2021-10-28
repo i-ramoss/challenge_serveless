@@ -10,7 +10,7 @@ interface ICreateTodo {
 }
 
 export const handle: APIGatewayProxyHandler = async event => {
-  const { userId } = event.pathParameters;
+  const { id } = event.pathParameters;
 
   const { title, deadline } = JSON.parse(event.body) as ICreateTodo;
 
@@ -18,14 +18,14 @@ export const handle: APIGatewayProxyHandler = async event => {
 
   await document.put({ 
     TableName: 'users_todos', 
-    Item: { id: todo_id, user_id: userId, title, done: false, deadline: new Date(deadline) } 
+    Item: { id: todo_id, user_id: id, title, done: false, deadline: new Date(deadline) } 
   }).promise();
 
   return {
     statusCode: 201,
     body: JSON.stringify({ 
       message: 'Todo created successfully!',
-      todo: { id: todo_id, userId, title, done: false, deadline }
+      todo: { id: todo_id, user_id: id, title, done: false, deadline }
     }),
     headers: { 'Content-Type': 'application/json' }
   }

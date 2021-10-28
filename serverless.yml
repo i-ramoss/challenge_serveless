@@ -29,15 +29,21 @@ functions:
     handler: src/functions/createTodo.handle
     events:
       - http: 
-          path: /todos/{userId}
+          path: /todos/{id}
           method: POST
           cors: true
-
+  listUserTodos:
+    handler: src/functions/listUserTodos.handle
+    events:
+      - http:
+          path: /todos/{id}
+          method: GET
+          cors: true
+  
 resources:
   Resources:
     dbTodoUsers:
       Type: AWS::DynamoDB::Table
-
       Properties:
         TableName: users_todos
         ProvisionedThroughput:
